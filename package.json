@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nahid-hasan-khan/first-backend/issues"
   },
-  "homepage": "https://github.com/nahid-hasan-khan/first-backend#readme"
+  "homepage": "https://github.com/nahid-hasan-khan/first-backend#readme",
+  "dependencies": {
+    "url": "^0.11.4"
+  }
 }

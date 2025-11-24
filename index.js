@@ -34,21 +34,116 @@
 
 // server.listen(8000, () => console.log("server started"));
 
+// +++++++++++++++++++++++++@@@@@@@+++++++++++++++++++++++++
+
+// const http = require("http");
+
+// const server = http.createServer((req, res) => {
+
+//   switch (req.url) {
+//     case "/":
+//       res.end("this is home page");
+//       break;
+//     case "/about":
+//       res.end("this is Nahid khan");
+//       break;
+//     case "/contact":
+//       res.end("this is contact page");
+//     default:
+//       res.end("404 not found");
+//   }
+// });
+// server.listen(8000, () => console.log("server on"));
+
+// const http = require("http");
+// const fs = require("fs");
+// const url = require("url");
+
+// const server = http.createServer((req, res) => {
+//   if (req.url === "/favicon.ico") return res.end();
+//   const log = `${Date.now()} :New req Received :${req.url} \n`;
+//   const myUrl = url.parse(req.url, true);
+//   console.log(myUrl);
+
+//   fs.appendFile("log.txt", log, () => {
+//     switch (myUrl.pathname) {
+//       case "/":
+//         res.end("This is Homepage");
+//         break;
+//       case "/about":
+//         const username = myUrl.query.myname;
+//         res.end(`Hi, ${username}`);
+//         break;
+//       case "/contact-us":
+//         res.end("Contact us");
+//       default:
+//         "404 not found";
+//     }
+//   });
+// });
+// server.listen(8000, () => console.log("server started"));
+
+// +++++++++++++++++++++++++@@@@@@@+++++++++++++++++++++++++
+
+// const http = require("http");
+// const fs = require("fs");
+// const url = require("url");
+
+// const server = http.createServer((req, res) => {
+//   if (req.url === "favicon.ico") return res.end();
+//   const log = `${Date.now()},: new req Received, ${req.url} \n`;
+// const url=url.parse(req.url,true);
+// console.log(url);
+
+//   console.log("http server req rec");
+//   fs.appendFile("log.txt", log, () => {
+//     switch (req.pathname) {
+//       case "/":
+//         res.end("this is home page");
+//         break;
+//       case "/about":
+//         res.end("this is Nahid Khan");
+//         break;
+//       case "/contact":
+//         res.end("this is contact page");
+//         break;
+//       default:
+//         res.end("404 not found");
+//     }
+//   });
+// });
+
+// server.listen(8000, () => console.log("server is responding"));
+
+// +++++++++++++++++++++++++@@@@@@@+++++++++++++++++++++++++
+
 const http = require("http");
+const fs = require("fs");
+const url = require("url");
 
 const server = http.createServer((req, res) => {
+  if (req.url === "/favicon.ico") return res.end();
+  const log = `${Date.now()} : ${req.url} Rec a new req \n`;
+  const clintUrl = url.parse(req.url, true);
 
-  switch (req.url) {
-    case "/":
-      res.end("this is home page");
-      break;
-    case "/about":
-      res.end("this is Nahid khan");
-      break;
-    case "/contact":
-      res.end("this is contact page");
-    default:
-      res.end("404 not found");
-  }
+  fs.appendFile("log.txt", log, (err, data) => {
+    switch (req.pathname) {
+      case "/":
+        res.end("this is home page");
+        break;
+
+      case "/about":
+        const username = clintUrl.query.myname;
+        res.end(`Hi, ${username}`);
+        break;
+
+      case "/contact-us":
+        res.end("this is contact-us page");
+        break;
+      default:
+        "404 Not Found";
+        break;
+    }
+  });
 });
-server.listen(8000, () => console.log("server on"));
+server.listen(8000, () => console.log("serve completed"));
