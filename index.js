@@ -123,12 +123,12 @@ const url = require("url");
 
 const server = http.createServer((req, res) => {
   if (req.url === "/favicon.ico") return res.end();
-  const log = `${Date.now()} : ${req.url} Rec a new req \n`;
+  const log = `${Date.now()} : ${req.url} : ${req.method} Rec a new req \n`;
   const clintUrl = url.parse(req.url, true);
 
   fs.appendFile("log.txt", log, (err, data) => {
-    switch (req.pathname) {
-      case "/":
+    switch (clintUrl.pathname) {
+      case "/":if(req.method==="GET")
         res.end("this is home page");
         break;
 
@@ -140,6 +140,21 @@ const server = http.createServer((req, res) => {
       case "/contact-us":
         res.end("this is contact-us page");
         break;
+
+      case "/search":
+        const search = clintUrl.query.search_query;
+        res.end("this is your result" + search);
+        break;
+
+      case "/signup":
+        if (req.method === "GET") res.end("this is a signup form");
+        else if (req.method === "POST") {
+          //DB Query
+          res.end("success");
+        }
+
+        break;
+
       default:
         "404 Not Found";
         break;
@@ -147,3 +162,7 @@ const server = http.createServer((req, res) => {
   });
 });
 server.listen(8000, () => console.log("serve completed"));
+
+
+// +++++++++++++++++++++++++@@@@@@@+++++++++++++++++++++++++
+
